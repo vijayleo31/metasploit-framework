@@ -82,8 +82,11 @@ class Priv < Extension
         raise RuntimeError, "#{elevators.chomp(', ')} not found", caller
       end
 
-      encrypted_elevator_data = ::File.binread(elevator_path)
-      elevator_data = ::MetasploitPayloads::Crypto.decrypt(ciphertext: encrypted_elevator_data)
+      elevator_data = ''
+
+      ::File.open(elevator_path, 'rb') { |f|
+        elevator_data += f.read(f.stat.size)
+      }
 
       request.add_tlv(TLV_TYPE_ELEVATE_SERVICE_DLL, elevator_data)
       request.add_tlv(TLV_TYPE_ELEVATE_SERVICE_LENGTH, elevator_data.length)

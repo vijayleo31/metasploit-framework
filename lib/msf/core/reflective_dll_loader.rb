@@ -24,8 +24,8 @@ module Msf::ReflectiveDLLLoader
   # @return [Array] Tuple of DLL contents and offset to the
   #                 +ReflectiveLoader+ function within the DLL.
   def load_rdi_dll(dll_path, loader_name: 'ReflectiveLoader', loader_ordinal: EXPORT_REFLECTIVELOADER)
-    encrypted_dll = ::File.binread(dll_path)
-    dll = ::MetasploitPayloads::Crypto.decrypt(ciphertext: encrypted_dll)
+    dll = ''
+    ::File.open(dll_path, 'rb') { |f| dll = f.read }
 
     offset = parse_pe(dll, loader_name: loader_name, loader_ordinal: loader_ordinal)
 
@@ -43,8 +43,7 @@ module Msf::ReflectiveDLLLoader
   #
   # @return [Integer] offset to the +ReflectiveLoader+ function within the DLL.
   def load_rdi_dll_from_data(dll_data, loader_name: 'ReflectiveLoader', loader_ordinal: EXPORT_REFLECTIVELOADER)
-    decrypted_dll_data = ::MetasploitPayloads::Crypto.decrypt(ciphertext: dll_data)
-    offset = parse_pe(decrypted_dll_data, loader_name: loader_name, loader_ordinal: loader_ordinal)
+    offset = parse_pe(dll_data, loader_name: loader_name, loader_ordinal: loader_ordinal)
 
     unless offset
       raise 'Cannot find the ReflectiveLoader entry point in DLL data'
