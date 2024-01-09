@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 #   spec.add_runtime_dependency '<name>', [<version requirements>]
 gemspec name: 'metasploit-framework'
 
+
+gem 'nokogiri', git: 'https://github.com/adfoster-r7/nokogiri', branch: 'allow-compilation-on-older-gcc-versions'
+
 # separate from test as simplecov is not run on travis-ci
 group :coverage do
   # code coverage for tests

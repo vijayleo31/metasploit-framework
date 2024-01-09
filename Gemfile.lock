@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/adfoster-r7/nokogiri
+  revision: 508fb79ea66c9d9b6b24f64995ec19442458b16f
+  branch: allow-compilation-on-older-gcc-versions
+  specs:
+    nokogiri (1.16.0)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+
 PATH
   remote: .
   specs:
@@ -314,9 +323,6 @@ GEM
     network_interface (0.0.4)
     nexpose (7.3.0)
     nio4r (2.5.9)
-    nokogiri (1.16.0)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nori (2.6.0)
     octokit (4.25.1)
       faraday (>= 1, < 3)
@@ -557,6 +563,7 @@ DEPENDENCIES
   fivemat
   memory_profiler
   metasploit-framework!
+  nokogiri!
   octokit
   pry-byebug
   rake
